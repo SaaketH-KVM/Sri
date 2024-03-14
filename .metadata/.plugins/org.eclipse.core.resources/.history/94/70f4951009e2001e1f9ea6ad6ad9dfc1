@@ -1,0 +1,2 @@
+spring.application.name=SoapAssignment11
+employee-service.getendpoint-url=http://localhost:8080/employeeService

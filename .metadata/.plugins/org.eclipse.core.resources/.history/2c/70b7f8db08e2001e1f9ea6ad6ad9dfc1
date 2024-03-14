@@ -1,0 +1,2 @@
+spring.application.name=SoapAssignment11
+employee-service.endpointUrl=http://example.com/employee-service

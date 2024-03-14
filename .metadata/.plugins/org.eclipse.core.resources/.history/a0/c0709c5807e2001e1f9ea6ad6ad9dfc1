@@ -1,0 +1,43 @@
+package com.example.demo.Config;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.stereotype.Service;
+import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+
+import com.jassignment.soap.entity.EmployeeRequest;
+import com.jassignment.soap.entity.EmployeeResponse;
+public class Client {
+	@Service
+	public class client extends WebServiceGatewaySupport {
+
+	    // Method to update the email ID of an employee
+	    public boolean updateEmployeeEmail(String employeeId, String newEmail) {
+	        // Create a request object with the employee ID and the new email
+	        EmployeeRequest request = new EmployeeRequest();
+	        request.setEmployeeId(employeeId);
+	        request.setNewEmail(newEmail);
+
+	        try {
+	            // Send the request to the SOAP web service
+	            EmployeeResponse response = (EmployeeResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	            // Check if the update was successful
+	            if (response.isUpdated()) {
+	                System.out.println("Email ID updated successfully for employee with ID " + employeeId);
+	                return true;
+	            } else {
+	                System.out.println("Failed to update email ID for employee with ID " + employeeId);
+	                return false;
+	            }
+	        } catch (Exception e) {
+	            // Handle any exceptions that occur during the update process
+	            System.out.println("Failed to update email ID for employee with ID " + employeeId + ". Error: " + e.getMessage());
+	            return false;
+	        }
+	    }
+	}
+
+	public void setMarshaller(Jaxb2Marshaller marshaller) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
